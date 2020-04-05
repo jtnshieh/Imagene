@@ -19,9 +19,6 @@
                                 <rect key="frame" x="0.0" y="132" width="414" height="764"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <outlet property="dataSource" destination="gda-fv-i7D" id="dd5-mc-kKy"/>
                                     <outlet property="delegate" destination="gda-fv-i7D" id="bpc-Mg-blE"/>
@@ -45,9 +42,6 @@
                             <constraint firstItem="QBK-Jp-MRa" firstAttribute="leading" secondItem="o9q-ea-IQN" secondAttribute="leading" id="Td1-rJ-OYh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JYP-BE-mrh"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                        </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" id="2zF-FJ-QHj"/>
                     <connections>

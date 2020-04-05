@@ -8,6 +8,6 @@ target 'ImageSearch' do
   
   pod 'AlamofireImage', '~> 4.0'
   
-  pod 'SkeletonView'
+#  pod 'SkeletonView'
 
 end

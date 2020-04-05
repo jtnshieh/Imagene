@@ -22,9 +22,6 @@
                             <constraint firstAttribute="width" secondItem="Xdp-fu-dor" secondAttribute="height" multiplier="25:16" id="R58-5z-CcF"/>
                             <constraint firstAttribute="width" constant="200" id="veb-Vl-uxi"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                        </userDefinedRuntimeAttributes>
                     </imageView>
                 </subviews>
                 <constraints>
@@ -33,14 +30,8 @@
                     <constraint firstItem="Xdp-fu-dor" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="epZ-Mh-Zjk"/>
                     <constraint firstItem="Xdp-fu-dor" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="mtH-0S-cRX"/>
                 </constraints>
-                <userDefinedRuntimeAttributes>
-                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="imageContainer" destination="Xdp-fu-dor" id="gmK-ce-1GY"/>
             </connections>

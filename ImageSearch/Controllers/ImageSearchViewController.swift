@@ -11,7 +11,7 @@ import Alamofire
 import AlamofireImage
 //import SkeletonView
 
-class ImageSearchViewController: UIViewController {
+class ImageSearchViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
