@@ -21,7 +21,6 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ImageCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
-        tableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
