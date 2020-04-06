@@ -49,10 +49,10 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     // MARK: - Data Manipulation Methods
     
     func fetchImages(_ query: String) {
-        self.imageArray = []
         let request = AF.request("https://api.imgur.com/3/gallery/search/?q=\(query)", method: .get, headers: HTTPHeaders(["Authorization":"Client-ID 5431ad12ec038d5"]))
         request.validate().responseDecodable(of: ImageData.self) { (response) in
-          guard let imageData = response.value else { return }
+            guard let imageData = response.value else { return }
+            self.imageArray = []
             for datum in imageData.data {
                 if let images = datum.images {
                     for image in images {
@@ -85,8 +85,6 @@ extension ImageSearchViewController: UITableViewDelegate {
 
 extension ImageSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        view.showGradientSkeleton()
-        fetchImages(searchBar.text!)
         DispatchQueue.main.async {
             searchBar.resignFirstResponder()
         }
@@ -99,8 +97,22 @@ extension ImageSearchViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
+        } else {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
+            perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.75)
         }
+        
     }
+    
+    @objc func reload(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text, query.trimmingCharacters(in: .whitespaces) != "" else {
+            return
+        }
+
+        fetchImages(searchBar.text!)
+//        view.showGradientSkeleton()
+    }
+    
 }
 
 //extension ImageSearchViewController: SkeletonTableViewDataSource {
