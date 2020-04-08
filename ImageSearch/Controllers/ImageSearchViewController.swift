@@ -19,6 +19,7 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     
     var imageArray = [Image]()
     var searchArray = [String]()
+    let maxSearchesDisplayed = 6
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +41,13 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     // MARK: - TableView Datasource Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count: Int?
         if tableView == self.tableView {
-            count = imageArray.count
+            return imageArray.count
         } else if tableView == self.searchTableView {
-            count = searchArray.count
+            let searchCount = searchArray.count > maxSearchesDisplayed ? maxSearchesDisplayed : searchArray.count
+            return searchCount
         }
-        return count!
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -165,7 +166,7 @@ extension ImageSearchViewController: UISearchBarDelegate {
             return
         }
 
-        fetchImages(searchBar.text!)
+        fetchImages(query)
 //        view.showGradientSkeleton()
     }
     
