@@ -96,19 +96,32 @@
         <scene sceneID="Fu9-YN-GPi">
             <objects>
                 <viewController id="Poc-bR-ofY" customClass="ImageViewController" customModule="ImageSearch" customModuleProvider="target" sceneMemberID="viewController">
-                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="aH8-qC-hrw">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="35Z-kk-UYP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ab8-J2-c1n">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="11N-jQ-gHG"/>
+                        <viewLayoutGuide key="contentLayoutGuide" id="74H-jr-RDc"/>
+                        <viewLayoutGuide key="frameLayoutGuide" id="8q9-TR-lEG"/>
+                        <connections>
+                            <outlet property="delegate" destination="Poc-bR-ofY" id="GlR-vX-hu1"/>
+                        </connections>
+                    </scrollView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="Smd-d0-Rsc"/>
                     <connections>
-                        <outlet property="imageView" destination="aH8-qC-hrw" id="Pui-e1-t7m"/>
+                        <outlet property="imageView" destination="ab8-J2-c1n" id="5rX-Bc-rn1"/>
+                        <outlet property="scrollView" destination="35Z-kk-UYP" id="wzU-ww-cbe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="co9-dy-Qvz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1928" y="-52"/>
+            <point key="canvasLocation" x="1927.5362318840582" y="-52.232142857142854"/>
         </scene>
     </scenes>
 </document>

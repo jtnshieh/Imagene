@@ -27,7 +27,7 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
         tapGesture.cancelsTouchesInView = false
         tableView.addGestureRecognizer(tapGesture)
         searchTableView.layer.borderWidth = 2.0;
-        searchTableView.backgroundColor = .systemTeal
+        searchTableView.backgroundColor = #colorLiteral(red: 0.5582914948, green: 0.8606375456, blue: 0.8125551343, alpha: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,6 +152,7 @@ extension ImageSearchViewController: UISearchBarDelegate {
         if searchBar.text?.count == 0 {
             imageArray = []
             tableView.reloadData()
+            dismissKeyboardAndRecentSearches()
         } else {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
             perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.75)

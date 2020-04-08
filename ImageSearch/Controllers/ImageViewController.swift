@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import AlamofireImage
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
     
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var imageView: UIImageView!
     
     var imageURL: URL?
     var image: Image? {
@@ -32,8 +33,14 @@ class ImageViewController: UIViewController {
                 self.imageView.af.setImage(withURL: safeImageURL)
             }
         }
+        
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 6.0
     }
     
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
     
     
 }
