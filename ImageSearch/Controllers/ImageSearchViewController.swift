@@ -23,6 +23,11 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "ImageCell", bundle: nil), forCellReuseIdentifier: "ReusableCell")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardAndRecentSearches))
+        tapGesture.cancelsTouchesInView = false
+        tableView.addGestureRecognizer(tapGesture)
+        searchTableView.layer.borderWidth = 2.0;
+        searchTableView.backgroundColor = .systemTeal
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,10 +101,7 @@ extension ImageSearchViewController: UITableViewDelegate {
             fetchImages(query)
             searchArray = searchArray.filter({ $0 != query})
             searchArray.insert(query, at: 0)
-            DispatchQueue.main.async {
-                self.searchBar.resignFirstResponder()
-                self.searchTableView.isHidden = true
-            }
+            dismissKeyboardAndRecentSearches()
         }
     }
         
@@ -119,6 +121,9 @@ extension ImageSearchViewController: UISearchBarDelegate {
             }
             searchArray.insert(searchBar.text!, at: 0)
         }
+    }
+    
+    @objc func dismissKeyboardAndRecentSearches() {
         DispatchQueue.main.async {
             self.searchBar.resignFirstResponder()
             self.searchTableView.isHidden = true
@@ -127,10 +132,12 @@ extension ImageSearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         addSearchResult()
+        dismissKeyboardAndRecentSearches()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         addSearchResult()
+        dismissKeyboardAndRecentSearches()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
