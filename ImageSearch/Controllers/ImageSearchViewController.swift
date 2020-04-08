@@ -13,10 +13,12 @@ import AlamofireImage
 
 class ImageSearchViewController: UIViewController, UITableViewDataSource {
 
+    @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     var imageArray = [Image]()
+    var searchArray = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        searchTableView.isHidden = true
         if let index = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: index, animated: true)
         }
@@ -32,18 +35,31 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
     // MARK: - TableView Datasource Methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return imageArray.count
+        var count: Int?
+        if tableView == self.tableView {
+            count = imageArray.count
+        } else if tableView == self.searchTableView {
+            count = searchArray.count
+        }
+        return count!
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! ImageCell
-        let image = imageArray[indexPath.row]
-        if let link = image.link, let url = URL(string: link), let imageView = cell.imageContainer {
-            let placeholder = UIImage(systemName: "tray.and.arrow.down")?.withRenderingMode(.alwaysTemplate)
-            imageView.tintColor = .black
-            imageView.af.setImage(withURL: url, placeholderImage: placeholder)
+        if tableView == self.tableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! ImageCell
+            let image = imageArray[indexPath.row]
+            if let link = image.link, let url = URL(string: link), let imageView = cell.imageContainer {
+                let placeholder = UIImage(systemName: "tray.and.arrow.down")?.withRenderingMode(.alwaysTemplate)
+                imageView.tintColor = .black
+                imageView.af.setImage(withURL: url, placeholderImage: placeholder)
+            }
+            return cell
+        } else if tableView == self.searchTableView {
+            let searchCell = searchTableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath)
+            searchCell.textLabel?.text = searchArray[indexPath.row]
+            return searchCell
         }
-        return cell
+        return UITableViewCell()
     }
     
     // MARK: - Data Manipulation Methods
@@ -72,7 +88,19 @@ class ImageSearchViewController: UIViewController, UITableViewDataSource {
 
 extension ImageSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToImage", sender: self)
+        if tableView == self.tableView {
+            performSegue(withIdentifier: "goToImage", sender: self)
+        } else if tableView == self.searchTableView {
+            let query = searchArray[indexPath.row]
+            searchBar.text = query
+            fetchImages(query)
+            searchArray = searchArray.filter({ $0 != query})
+            searchArray.insert(query, at: 0)
+            DispatchQueue.main.async {
+                self.searchBar.resignFirstResponder()
+                self.searchTableView.isHidden = true
+            }
+        }
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -84,9 +112,32 @@ extension ImageSearchViewController: UITableViewDelegate {
 }
 
 extension ImageSearchViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func addSearchResult() {
+        if searchBar.text!.count > 0 {
+            if let idx = searchArray.firstIndex(of: searchBar.text!) {
+                searchArray.remove(at: idx)
+            }
+            searchArray.insert(searchBar.text!, at: 0)
+        }
         DispatchQueue.main.async {
-            searchBar.resignFirstResponder()
+            self.searchBar.resignFirstResponder()
+            self.searchTableView.isHidden = true
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        addSearchResult()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        addSearchResult()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            self.searchTableView.isHidden = false
+            self.searchTableView.reloadData()
+            self.searchTableView.frame.size = self.searchTableView.contentSize;
         }
     }
     
@@ -94,9 +145,6 @@ extension ImageSearchViewController: UISearchBarDelegate {
         if searchBar.text?.count == 0 {
             imageArray = []
             tableView.reloadData()
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
         } else {
             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(self.reload(_:)), object: searchBar)
             perform(#selector(self.reload(_:)), with: searchBar, afterDelay: 0.75)

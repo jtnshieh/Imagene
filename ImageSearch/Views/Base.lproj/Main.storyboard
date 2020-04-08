@@ -22,13 +22,32 @@
                                     <outlet property="delegate" destination="gda-fv-i7D" id="tyd-Ub-4Ir"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="158" estimatedRowHeight="158" sectionHeaderHeight="100" sectionFooterHeight="28" id="o9q-ea-IQN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="158" estimatedRowHeight="158" sectionHeaderHeight="100" sectionFooterHeight="28" id="o9q-ea-IQN">
                                 <rect key="frame" x="0.0" y="86" width="414" height="722"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="gda-fv-i7D" id="dd5-mc-kKy"/>
                                     <outlet property="delegate" destination="gda-fv-i7D" id="bpc-Mg-blE"/>
+                                </connections>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EpN-V8-aSe">
+                                <rect key="frame" x="0.0" y="86" width="414" height="157"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" rowHeight="30" id="CD9-Mq-3nj">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CD9-Mq-3nj" id="jvc-qu-Y2F">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="gda-fv-i7D" id="JBj-yR-Z2x"/>
+                                    <outlet property="delegate" destination="gda-fv-i7D" id="Jmv-la-wj1"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -45,6 +64,7 @@
                     <navigationItem key="navigationItem" id="2zF-FJ-QHj"/>
                     <connections>
                         <outlet property="searchBar" destination="QBK-Jp-MRa" id="iRr-Rb-clo"/>
+                        <outlet property="searchTableView" destination="EpN-V8-aSe" id="Pu3-Ac-e1v"/>
                         <outlet property="tableView" destination="o9q-ea-IQN" id="Atn-Kn-Jjc"/>
                         <segue destination="Poc-bR-ofY" kind="show" identifier="goToImage" id="xN9-Bq-nTV"/>
                     </connections>
