@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Image Search View Controller-->
+        <!--Imagene-->
         <scene sceneID="B3r-3b-Yu4">
             <objects>
                 <viewController id="gda-fv-i7D" customClass="ImageSearchViewController" customModule="ImageSearch" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,7 +62,7 @@
                         <viewLayoutGuide key="safeArea" id="JYP-BE-mrh"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="2zF-FJ-QHj"/>
+                    <navigationItem key="navigationItem" title="Imagene" id="2zF-FJ-QHj"/>
                     <connections>
                         <outlet property="searchBar" destination="QBK-Jp-MRa" id="iRr-Rb-clo"/>
                         <outlet property="searchTableView" destination="EpN-V8-aSe" id="Pu3-Ac-e1v"/>
